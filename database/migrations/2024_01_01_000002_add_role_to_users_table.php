@@ -8,17 +8,24 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            // 'customer' atau 'admin'
-            $table->string('role')->default('customer')->after('password');
-            $table->string('phone')->nullable()->after('role');
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+
+            // customer atau admin
+            $table->string('role')->default('customer');
+            $table->string('phone')->nullable();
+
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['role', 'phone']);
-        });
+        Schema::dropIfExists('users');
     }
 };

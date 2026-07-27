@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Court;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class CourtSeeder extends Seeder
@@ -16,5 +17,13 @@ class CourtSeeder extends Seeder
                 'is_active' => true,
             ]);
         }
+
+        User::create([
+                'name' => "admin",
+                'email' => "admin@example.com",
+                'password' => bcrypt("123456"),
+                'role' => "customer",
+                'phone' => "08123456789",
+            ]);
     }
 }
